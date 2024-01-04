@@ -1,7 +1,5 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary")
+load("@bazel_gazelle//:def.bzl", "gazelle")
 
-go_binary(
-    name = "calorie_calculator",
-    srcs = ["Calorie.go"],
-    visibility = ["//visibility:public"],
-)
+## This is a gazelle anotation, change the package
+# gazelle:prefix github.com/schoren/example-bazel-containers-hasher
+gazelle(name = "gazelle")
