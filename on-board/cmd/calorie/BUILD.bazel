@@ -1,0 +1,22 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+
+go_library(
+    name = "calorie_lib",
+    srcs = ["Calorie.go"],
+    importpath = "github.com/schoren/example-bazel-containers-hasher/cmd/calorie",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "calorie",
+    embed = [":calorie_lib"],
+    visibility = ["//visibility:public"],
+)
+
+container_image(
+    name = "image",
+    base = "@alpine_linux_amd64//image",
+    entrypoint = ["/calorie"],
+    files = [":calorie"],
+)
